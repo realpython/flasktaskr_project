@@ -69,11 +69,6 @@ class MainTests(unittest.TestCase):
     #### views ####
     ###############
 
-    def test_index(self):
-        """ Ensure flask was set up correctly. """
-        response = self.app.get(
-            '/', content_type='html/text', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
 
     def test_collection_endpoint_returns_correct_data(self):
         self.add_tasks()

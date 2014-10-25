@@ -13,3 +13,13 @@ install:
 # run tests
 script:
   - nosetests
+
+# deploy
+deploy:
+  provider: heroku
+  api_key:
+    secure: Dxdd3y/i7oTTsC5IHUebG/xVJIrGbz1CCHm9KwE56QccfR89CGi/8BiE387QwMyCvDYgXs2XUEfN9MuFSvFIwiinIUQkPPjwJt+8B1p0GFs7/PnRr8/fyT5dqTeamLn6KBW1gy+UTpyjt1Kx+Eu4VC//1SJhJBCRELxLSoZmc44=
+  app: flasktaskr_project
+  on:
+    branch: master
+    repo: realpython/flasktaskr_project
