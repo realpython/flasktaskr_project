@@ -69,7 +69,6 @@ class MainTests(unittest.TestCase):
     #### views ####
     ###############
 
-
     def test_collection_endpoint_returns_correct_data(self):
         self.add_tasks()
         response = self.app.get('api/tasks/', follow_redirects=True)
