@@ -38,9 +38,9 @@ def login_required(test):
 #### routes ####
 ################
 
-@app.route('/', defaults={'page': 'index'})
-def index(page):
-    return redirect(url_for('tasks.tasks'))
+# @app.route('/', defaults={'page': 'index'})
+# def index(page):
+#     return redirect(url_for('tasks.tasks'))
 
 
 ########################
