@@ -3,10 +3,10 @@
 
 from project import db
 
+import datetime
+
 
 class Task(db.Model):
-
-    import datetime
 
     __tablename__ = "tasks"
 
@@ -27,7 +27,7 @@ class Task(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return '<name %r>' % (self.name)
+        return '<name {0}>'.format(self.name)
 
 
 class User(db.Model):
@@ -48,4 +48,4 @@ class User(db.Model):
         self.role = role
 
     def __repr__(self):
-        return '<User %r>' % (self.name)
+        return '<User {0}>'.format(self.name)

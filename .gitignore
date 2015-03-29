@@ -1,6 +1,8 @@
 env
+venv
 *.pyc
-DS_Store
-cover
+__pycache__
+*.DS_Store
 .coverage
-archive
+htmlcov
+error.log
