@@ -54,3 +54,8 @@ def deploy():
 
 def rollback():
     local("heroku rollback")
+
+def push():
+    local("git branch")
+    branch = input("which branch do you want to push to?")
+    local("git push origin {}".format(branch))
