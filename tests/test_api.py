@@ -1,4 +1,4 @@
-# test_main.py
+# tests/test_api.py
 
 
 import os
@@ -6,14 +6,14 @@ import unittest
 from datetime import date
 
 from project import app, db
-from config import basedir
+from project._config import basedir
 from project.models import Task
 
 
 TEST_DB = 'test.db'
 
 
-class MainTests(unittest.TestCase):
+class APITests(unittest.TestCase):
 
     ############################
     #### setup and teardown ####
@@ -44,9 +44,9 @@ class MainTests(unittest.TestCase):
         db.session.add(
             Task(
                 "Run around in circles",
-                date(2015, 1, 22),
+                date(2015, 10, 22),
                 10,
-                date(2015, 1, 05),
+                date(2015, 10, 5),
                 1,
                 1
             )
@@ -58,7 +58,7 @@ class MainTests(unittest.TestCase):
                 "Purchase Real Python",
                 date(2016, 2, 23),
                 10,
-                date(2016, 2, 07),
+                date(2016, 2, 7),
                 1,
                 1
             )
@@ -66,37 +66,31 @@ class MainTests(unittest.TestCase):
         db.session.commit()
 
     ###############
-    #### views ####
+    #### tests ####
     ###############
-
-    def test_index(self):
-        """ Ensure flask was set up correctly. """
-        response = self.app.get(
-            '/', content_type='html/text', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
 
     def test_collection_endpoint_returns_correct_data(self):
         self.add_tasks()
-        response = self.app.get('api/tasks/', follow_redirects=True)
+        response = self.app.get('api/v1/tasks/', follow_redirects=True)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.mimetype, 'application/json')
-        self.assertIn('Run around in circles', response.data)
-        self.assertIn('Purchase Real Python', response.data)
+        self.assertIn(b'Run around in circles', response.data)
+        self.assertIn(b'Purchase Real Python', response.data)
 
     def test_resource_endpoint_returns_correct_data(self):
         self.add_tasks()
-        response = self.app.get('api/tasks/2', follow_redirects=True)
+        response = self.app.get('api/v1/tasks/2', follow_redirects=True)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.mimetype, 'application/json')
-        self.assertIn('Purchase Real Python', response.data)
-        self.assertNotIn('Run around in circles', response.data)
+        self.assertIn(b'Purchase Real Python', response.data)
+        self.assertNotIn(b'Run around in circles', response.data)
 
     def test_invalid_resource_endpoint_returns_error(self):
         self.add_tasks()
-        response = self.app.get('api/tasks/209', follow_redirects=True)
+        response = self.app.get('api/v1/tasks/209', follow_redirects=True)
         self.assertEquals(response.status_code, 404)
         self.assertEquals(response.mimetype, 'application/json')
-        self.assertIn('Element does not exist', response.data)
+        self.assertIn(b'Element does not exist', response.data)
 
 
 if __name__ == "__main__":
